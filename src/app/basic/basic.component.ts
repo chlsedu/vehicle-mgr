@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-basic',
@@ -7,9 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BasicComponent implements OnInit {
 
-  constructor() { }
+  isCollapsed = false;
+  triggerTemplate = null;
+  date;
 
-  ngOnInit() {
+  constructor() {
   }
 
+  launchSidebar() {
+    this.isCollapsed = !this.isCollapsed;
+  }
+
+  ngOnInit() {
+    const date = new Date();
+    this.date = date.getFullYear();
+  }
 }
