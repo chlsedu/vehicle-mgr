@@ -12,10 +12,17 @@ import {SharedModule} from "../shared/shared.module";
   imports: [
     CommonModule,
     RouterModule.forChild([
-      {path: '', redirectTo: 'user', pathMatch: 'full'},
-      {path: 'user', component: UserComponent},
-      {path: 'role', component: RoleComponent},
-      {path: 'auth', component: AuthComponent},
+      {path: '', redirectTo: 'child', pathMatch: 'full'},
+      {
+        path: 'child',
+        component: BasicComponent,
+        children: [
+          {path: '', redirectTo: 'user', pathMatch: 'full'},
+          {path: 'user', component: UserComponent},
+          {path: 'role', component: RoleComponent},
+          {path: 'auth', component: AuthComponent},
+        ]
+      },
     ]),
     SharedModule,
   ],
