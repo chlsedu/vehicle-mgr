@@ -4,7 +4,8 @@
     <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="triggerTemplate">
       <app-sider [isCollapsed]="isCollapsed"></app-sider>
     </nz-sider>
-    <nz-layout [ngStyle]="{'margin-left':isCollapsed?'80px':'200px'}" class="layout-nz">
+    <nz-layout [ngStyle]="{'margin-left':isCollapsed?'0px':'0px','padding':'0px 15px 0px'}" class="layout-nz">
+      <app-breadcrumb></app-breadcrumb>
       <nz-content style="background:#fff;">
         <router-outlet>
         </router-outlet>

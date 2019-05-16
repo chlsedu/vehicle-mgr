@@ -17,11 +17,6 @@
       <div class="dw-inter-item" *ngIf="resize>900">
         <i nz-icon nzType="sound"></i>
       </div>
-      <div class="dw-inter-search" *ngIf="resize>900">
-        <nz-input-group [nzSuffix]="suffixIconSearch" [ngStyle]="{'width': resize < 1300 ? '300px':'500px'}">
-          <input type="text" nz-input placeholder="搜索：员工、文件、照片等">
-        </nz-input-group>
-      </div>
       <div class="dw-inter-item" *ngIf="resize>1200">
         <i nz-icon nzType="barcode"></i>
       </div>
@@ -39,6 +34,11 @@
       </div>
     </div>
     <div class="dw-inter-right" *ngIf="resize>500">
+      <div class="dw-inter-search" *ngIf="resize>900">
+        <nz-input-group [nzSuffix]="suffixIconSearch" [ngStyle]="{'width': resize < 1300 ? '150px':'150px'}">
+          <input type="text" nz-input placeholder="搜索">
+        </nz-input-group>
+      </div>
       <div class="dw-inter-item">
         <nz-dropdown [nzPlacement]="'bottomCenter'">
           <a nz-dropdown>

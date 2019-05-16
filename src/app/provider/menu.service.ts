@@ -11,18 +11,28 @@ export class MenuService {
   _Menus = [
     {
       text: '首页',
-      link: 'index',
+      link: '/',
       icon: 'home',
       children: []
     },
     {
-      text: '图表',
-      link: '',
-      icon: 'line-chart',
+      text: '基础管理',
+      link: 'base',
+      icon: 'setting',
       children: [
         {
-          text: '折线图',
-          link: 'charts/line',
+          text: '用户管理',
+          link: 'user',
+          icon: '',
+        },
+        {
+          text: '角色管理',
+          link: 'role',
+          icon: '',
+        },
+        {
+          text: '权限管理',
+          link: 'auth',
           icon: '',
         }
       ]
