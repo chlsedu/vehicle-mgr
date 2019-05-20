@@ -6,7 +6,7 @@ import {HeaderComponent} from "./header/header.component";
 import {SiderComponent} from "./sider/sider.component";
 import {
   NzBreadCrumbModule,
-  NzDropDownModule,
+  NzDropDownModule, NzFormModule,
   NzIconModule,
   NzInputModule,
   NzLayoutModule,
@@ -21,6 +21,7 @@ import {
     , RouterModule
     , NzLayoutModule
     , NzBreadCrumbModule
+    , NzFormModule
     , NzMenuModule
     , NzDropDownModule
     , NzIconModule
@@ -32,6 +33,7 @@ import {
     , RouterModule
     , NzLayoutModule
     , NzBreadCrumbModule
+    , NzFormModule
     , NzMenuModule
     , NzDropDownModule
     , NzIconModule

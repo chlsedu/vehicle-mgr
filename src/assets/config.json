@@ -1,41 +1,36 @@
 {
-  "oauthParameter": {
-    "Authorization": "Basic Y2xpZW50X2lkOmNsaWVudF9zZWNyZXQ=",
-    "grant_type": "password",
-    "username": "",
-    "password": "",
-    "client_id": "client_id",
-    "client_secret": "client_secret"
+  "jwtParameter": {
+    "Authorization": "Bearer "
   },
   "user": {
     "loginUrl": "/login",
     "api": {
-      "oauth": "http://localhost:20001/uaa/oauth/token",
-      "userInfo": "http://localhost:20001/bigData/users/baseInfo"
+      "jwt": "http://localhost:20008/auth/login",
+      "userInfo": "http://localhost:20008/users/baseInfo"
     }
   },
   "company": {
     "api": {
-      "showImg": "http://localhost:20001/bigData/common/showImg",
-      "showImgBase64": "http://localhost:20001/bigData/common/showImgBase64",
-      "user": "http://localhost:20001/bigData/users/all",
-      "userById": "http://localhost:20001/bigData/users/id",
-      "userSave": "http://localhost:20001/bigData/users/save",
-      "userDelete": "http://localhost:20001/bigData/users/delete/id",
-      "userSaveAttachment": "http://localhost:20001/bigData/users/saveAttachment",
-      "userSaveAttachmentAttr": "http://localhost:20001/bigData/users/saveAttachmentAttr",
-      "userDeleteAttachment": "http://localhost:20001/bigData/users/deleteAttachment",
-      "userAttachmentList": "http://localhost:20001/bigData/users/getAttachmentList",
-      "userAttachmentDelete": "http://localhost:20001/bigData/users/deleteAttachment",
-      "userSaveRole": "http://localhost:20001/bigData/users/saveRole",
-      "userEdit": "http://localhost:20001/bigData/users/save",
+      "showImg": "http://localhost:20008/common/showImg",
+      "showImgBase64": "http://localhost:20008/common/showImgBase64",
+      "user": "http://localhost:20008/users/all",
+      "userById": "http://localhost:20008/users/id",
+      "userSave": "http://localhost:20008/users/save",
+      "userDelete": "http://localhost:20008/users/delete/id",
+      "userSaveAttachment": "http://localhost:20008/users/saveAttachment",
+      "userSaveAttachmentAttr": "http://localhost:20008/users/saveAttachmentAttr",
+      "userDeleteAttachment": "http://localhost:20008/users/deleteAttachment",
+      "userAttachmentList": "http://localhost:20008/users/getAttachmentList",
+      "userAttachmentDelete": "http://localhost:20008/users/deleteAttachment",
+      "userSaveRole": "http://localhost:20008/users/saveRole",
+      "userEdit": "http://localhost:20008/users/save",
       "userModifyPwd": "http://localhost:20001/uaa/modifyPwd",
-      "auth": "http://localhost:20001/bigData/auth/all",
-      "authEdit": "http://localhost:20001/bigData/auth/save",
-      "role": "http://localhost:20001/bigData/role/all",
-      "roleEdit": "http://localhost:20001/bigData/role/save",
-      "roleSaveAuth": "http://localhost:20001/bigData/role/saveAuth",
-      "optLog": "http://localhost:20001/bigData/optLog/all"
+      "auth": "http://localhost:20008/auth/all",
+      "authEdit": "http://localhost:20008/auth/save",
+      "role": "http://localhost:20008/role/all",
+      "roleEdit": "http://localhost:20008/role/save",
+      "roleSaveAuth": "http://localhost:20008/role/saveAuth",
+      "optLog": "http://localhost:20008/optLog/all"
     }
   },
   "material": {}

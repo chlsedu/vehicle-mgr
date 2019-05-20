@@ -2,37 +2,53 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError} from "rxjs/operators";
+import {Router} from "@angular/router";
+import {CookieService} from "ngx-cookie-service";
+import {UtilitiesService} from "./utilities.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
   protected configUrl = 'assets/config.json';
-  protected config: any;
+  public config: any;
+  protected httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    })
+  };
+  protected httpOptionsJwt;
+  protected jwtToken: string;
   protected httpOptionsOauth;
-  protected httpOptions;
-  protected access_token;
+  protected access_token: string;
 
-  constructor(protected http: HttpClient) {
+  constructor(protected http: HttpClient, protected router: Router, protected cookieService: CookieService) {
     (async () => {
       let configPromise = await this.fetchConfig().toPromise()
       this.config = configPromise;
-      this.httpOptionsOauth = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          'Authorization': this.config["oauthParameter"].Authorization
-        })
-      };
-      this.httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-        })
-      };
+      /*{
+        this.httpOptionsJwt = {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': this.config["jwtParameter"].Authorization + this.jwtToken
+          })
+        };
+        this.httpOptionsOauth = {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': this.config["oauthParameter"].Authorization
+          })
+        };
+      }*/
     })();
     /*while (true) {
       break;
     }*/
     // this.getConfig();
+  }
+
+  private toLogin(): void {
+    this.router.navigateByUrl(this.config["user"].loginUrl)
   }
 
   protected handleError(error: HttpErrorResponse) {
@@ -53,88 +69,162 @@ export class ApiService {
 
   protected assemUrl(url: string, isOauth: boolean): string {
     let _url: string = url;
-    if (isOauth) _url = url + '?access_token=' + this.access_token;
+    // if (isOauth) _url = url + '?access_token=' + this.access_token;
     return _url;
   }
 
-  // 0 requests made - .subscribe() not called.
-  private fetchConfig(): Observable<any> {
+  // 0 requests made - .subscribe() not called but toPromise.
+  protected fetchConfig(): Observable<any> {
     return this.http.get<any>(this.configUrl)
       .pipe(
         catchError(this.handleError)
       );
+  }
+
+  //The all query is by post way,not get,put or delete!
+  protected fetchData(data: any, url: string): Observable<any> {
+    this.jwtToken = this.cookieService.get("jwtToken");
+    this.httpOptionsJwt = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': this.config["jwtParameter"].Authorization + this.jwtToken
+      })
+    };
+    return this.http.post<any>(this.assemUrl(url, false), data, this.httpOptionsJwt)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  public subscribeData(url: string, data: any, cb): void {
+    this.fetchData(data, url).subscribe((data: any) => {
+      switch (data.code) {
+        case 0:
+          cb && cb(data);
+          break;
+        case 1:
+          cb && cb(null, data);
+          break;
+        case 2:
+          this.toLogin();
+          break;
+        default:
+          break;
+      }
+    });
   }
 }
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserApi extends ApiService {
-  constructor(http: HttpClient) {
-    super(http);
+export class UserApiService {
+  constructor(protected apiService: ApiService, protected utilities: UtilitiesService,) {
+
   }
 
-  private sleep(ms) {
-    let x = new Promise((resolve) => setTimeout(resolve, ms));
-    return x;
+  public async getData(data: any, cb) {
+    if (this.apiService.config == null) {
+      let _t: any | undefined = await this.utilities.sleep(1000);
+    }
+    let url = this.apiService.config["company"].api.user;
+    this.apiService.subscribeData(url, data, cb)
   }
 
-  //The all query is by post way,not get,put or delete!
-  private fetchData(data: any, url: string): Observable<any> {
-    return this.http.post<any>(this.assemUrl(url, false), data, this.httpOptions)
+  public async getDataById(data: any, cb) {
+    if (this.apiService.config == null) {
+      let _t: any | undefined = await this.utilities.sleep(1000);
+    }
+    let url = this.apiService.config["company"].api.userById;
+    this.apiService.subscribeData(url, data, cb)
+  }
+
+  public async save(data: any, cb) {
+    if (this.apiService.config == null) {
+      let _t: any | undefined = await this.utilities.sleep(1000);
+    }
+    let url = this.apiService.config["company"].api.userSave;
+    this.apiService.subscribeData(url, data, cb)
+  }
+
+  //pwd
+  public async modify(data: any, cb) {
+    if (this.apiService.config == null) {
+      let _t: any | undefined = await this.utilities.sleep(1000);
+    }
+    let url = this.apiService.config["company"].api.userModifyPwd;
+    this.apiService.subscribeData(url, data, cb)
+  }
+
+  public async delete(data: any, cb) {
+    if (this.apiService.config == null) {
+      let _t: any | undefined = await this.utilities.sleep(1000);
+    }
+    let url = this.apiService.config["company"].api.userDelete;
+    this.apiService.subscribeData(url, data, cb)
+  }
+
+}
+
+@Injectable()
+export class LoginService {
+  protected configUrl = 'assets/config.json';
+  public config: any;
+  protected httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    })
+  };
+
+  constructor(protected http: HttpClient, /*protected cookieService: CookieService,*/ protected utilities: UtilitiesService, protected router: Router) {
+    (async () => {
+      let configPromise = await this.fetchConfig().toPromise()
+      this.config = configPromise;
+    })();
+  }
+
+  protected handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      console.error('An error occurred:', error.error.message);
+    } else {
+      console.error(
+        `Backend returned code ${error.status}, ` +
+        `body was: ${error.error}`);
+    }
+    return throwError(
+      'Something bad happened; please try again later.');
+  };
+
+  protected fetchConfig(): Observable<any> {
+    return this.http.get<any>(this.configUrl)
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  private subscribeData(url: string, data: any, cb): void {
+  protected fetchData(data: any, url: string): Observable<any> {
+    return this.http.post<any>(url, data, this.httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  public subscribeData(url: string, data: any, cb): void {
     this.fetchData(data, url).subscribe((data: any) => {
-      if (data.code != 0) {
-        cb && cb(null, data)
-      } else {
-        cb && cb(data)
-      }
+      cb && cb(data)
+      /*((() => {
+        // this.cookieService.set("jwtToken", data.data.token, 7)
+        this.router.navigateByUrl("/");
+        return true;
+      })());*/
     });
   }
 
-  public async getData(data: any, cb) {
+  public async login(data: any, cb) {
     if (this.config == null) {
-      let _t: any | undefined = await this.sleep(1000);
+      let _t: any | undefined = await this.utilities.sleep(1000);
     }
-    let url = this.config["company"].api.user;
-    this.subscribeData(url, data, cb)
-  }
-
-  public async getDataById(data: any, cb) {
-    if (this.config == null) {
-      let _t: any | undefined = await this.sleep(1000);
-    }
-    let url = this.config["company"].api.userById;
-    this.subscribeData(url, data, cb)
-  }
-
-  public async save(data: any, cb) {
-    if (this.config == null) {
-      let _t: any | undefined = await this.sleep(1000);
-    }
-    let url = this.config["company"].api.userSave;
-    this.subscribeData(url, data, cb)
-  }
-
-  //pwd
-  public async modify(data: any, cb) {
-    if (this.config == null) {
-      let _t: any | undefined = await this.sleep(1000);
-    }
-    let url = this.config["company"].api.userModifyPwd;
-    this.subscribeData(url, data, cb)
-  }
-
-  public async delete(data: any, cb) {
-    if (this.config == null) {
-      let _t: any | undefined = await this.sleep(1000);
-    }
-    let url = this.config["company"].api.userDelete;
+    let url = this.config["user"].api.jwt;
     this.subscribeData(url, data, cb)
   }
 

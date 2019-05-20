@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {UserApi} from "../../provider/api.service";
+import {UserApiService} from "../../provider/api.service";
 
 @Component({
   selector: 'app-user',
@@ -10,11 +10,11 @@ export class UserComponent implements OnInit {
   public userList: any;
   public errorMsg: string;
 
-  constructor(private userApi: UserApi) {
+  constructor(private userApiService: UserApiService) {
   }
 
   ngOnInit() {
-    this.userApi.getData({}, (success, error) => {
+    this.userApiService.getData({}, (success, error) => {
       (success && ((() => {
         this.userList = success.data;
         return true;
