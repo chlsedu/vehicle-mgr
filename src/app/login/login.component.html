@@ -1,0 +1,35 @@
+<form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group [nzPrefix]="prefixUser">
+        <input type="text" nz-input formControlName="username" placeholder="用户名" />
+      </nz-input-group>
+      <nz-form-explain *ngIf="validateForm.get('username')?.dirty && validateForm.get('username')?.errors"
+      >请输入用户名</nz-form-explain
+      >
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group [nzPrefix]="prefixLock">
+        <input type="password" nz-input formControlName="password" placeholder="密码" />
+      </nz-input-group>
+      <nz-form-explain *ngIf="validateForm.get('password')?.dirty && validateForm.get('password')?.errors"
+      >请输入密码</nz-form-explain
+      >
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <label nz-checkbox formControlName="remember">
+        <span>记住我</span>
+      </label>
+      <!--<a class="login-form-forgot" class="login-form-forgot">Forgot password</a>-->
+      <button nz-button class="login-form-button" [nzType]="'primary'">登陆</button>
+      <!--Or
+      <a href="">register now!</a>-->
+    </nz-form-control>
+  </nz-form-item>
+</form>
+<ng-template #prefixUser><i nz-icon type="user"></i></ng-template>
+<ng-template #prefixLock><i nz-icon type="lock"></i></ng-template>
