@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {catchError} from "rxjs/operators";
 import {Router} from "@angular/router";
 import {CookieService} from "ngx-cookie-service";
 import {UtilitiesService} from "./utilities.service";
+import {catchError} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -76,9 +76,9 @@ export class ApiService {
   // 0 requests made - .subscribe() not called but toPromise.
   protected fetchConfig(): Observable<any> {
     return this.http.get<any>(this.configUrl)
-      .pipe(
-        catchError(this.handleError)
-      );
+    /*.pipe(
+      catchError(this.handleError)
+    );*/
   }
 
   //The all query is by post way,not get,put or delete!
@@ -91,9 +91,9 @@ export class ApiService {
       })
     };
     return this.http.post<any>(this.assemUrl(url, false), data, this.httpOptionsJwt)
-      .pipe(
-        catchError(this.handleError)
-      );
+    /*.pipe(
+      catchError(this.handleError)
+    );*/
   }
 
   public subscribeData(url: string, data: any, cb): void {
@@ -197,26 +197,25 @@ export class LoginService {
 
   protected fetchConfig(): Observable<any> {
     return this.http.get<any>(this.configUrl)
-      .pipe(
-        catchError(this.handleError)
-      );
+    /*.pipe(
+      catchError(this.handleError)
+    );*/
   }
 
   protected fetchData(data: any, url: string): Observable<any> {
     return this.http.post<any>(url, data, this.httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
+      .pipe(catchError((error: any) => {
+        if (error.status === 400) {
+          this.utilities.createNotification('error', '错误提示', error.error.message);
+          // this.router.navigateByUrl("/");
+        }
+        return throwError(error);
+      }));
   }
 
   public subscribeData(url: string, data: any, cb): void {
     this.fetchData(data, url).subscribe((data: any) => {
       cb && cb(data)
-      /*((() => {
-        // this.cookieService.set("jwtToken", data.data.token, 7)
-        this.router.navigateByUrl("/");
-        return true;
-      })());*/
     });
   }
 
