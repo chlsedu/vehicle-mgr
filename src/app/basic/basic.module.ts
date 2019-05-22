@@ -6,6 +6,7 @@ import {UserComponent} from "./user/user.component";
 import {RoleComponent} from "./role/role.component";
 import {AuthComponent} from "./auth/auth.component";
 import {SharedModule} from "../shared/shared.module";
+import {AuthGuard} from "../auth/auth.guard";
 
 @NgModule({
   declarations: [BasicComponent, UserComponent, RoleComponent, AuthComponent],
@@ -15,6 +16,7 @@ import {SharedModule} from "../shared/shared.module";
       {path: '', redirectTo: 'child', pathMatch: 'full'},
       {
         path: 'child',
+        canActivateChild: [AuthGuard],
         component: BasicComponent,
         children: [
           {path: '', redirectTo: 'user', pathMatch: 'full'},

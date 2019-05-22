@@ -1,13 +1,23 @@
 <ul nz-menu [nzTheme]="'light'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
   <ng-container *ngFor="let menu of menus">
-    <li nz-submenu *ngIf="menu.children.length">
+    <li nz-submenu nzOpen *ngIf="menu.children.length">
       <span title><i nz-icon [type]="menu.icon"></i><span class="nav-text">{{menu.text}}</span></span>
       <ul>
-        <li nz-menu-item *ngFor="let children of menu.children" [routerLink]="[children.link]">{{children.text}}</li>
-      </ul> 
+        <li nz-menu-item *ngFor="let children of menu.children" [routerLink]="[children.link]" routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }">{{children.text}}</li>
+      </ul>
+       
     </li>
-    <li nz-menu-item *ngIf="menu.children.length === 0" [routerLink]="[menu.link]">
+    <li nz-menu-item *ngIf="menu.children.length === 0" [routerLink]="[menu.link]" routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }">
       <span title><i nz-icon [type]="menu.icon"></i><span class="nav-text">{{menu.text}}</span></span>
     </li>
   </ng-container>
 </ul>
+
+<!--<nav>
+  <a routerLink="./user" routerLinkActive="active"
+     [routerLinkActiveOptions]="{ exact: true }">用户...</a>
+  <a routerLink="./role" routerLinkActive="active">Manage Crises</a>
+  <a routerLink="./auth" routerLinkActive="active">Manage Heroes</a>
+</nav>-->
