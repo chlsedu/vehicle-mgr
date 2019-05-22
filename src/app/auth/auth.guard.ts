@@ -14,7 +14,9 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean {
     let url: string = state.url;
-
+    if (typeof next.data["permission"] != "undefined") {
+      console.log(next.data["permission"]);
+    }
     return this.checkLogin(url);
   }
 

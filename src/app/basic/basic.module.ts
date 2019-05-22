@@ -20,7 +20,7 @@ import {AuthGuard} from "../auth/auth.guard";
         component: BasicComponent,
         children: [
           {path: '', redirectTo: 'user', pathMatch: 'full'},
-          {path: 'user', component: UserComponent},
+          {path: 'user', component: UserComponent, data: {'permission': 'user-view'}},
           {path: 'role', component: RoleComponent},
           {path: 'auth', component: AuthComponent},
         ]
