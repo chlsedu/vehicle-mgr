@@ -3,8 +3,7 @@
     <li nz-submenu nzOpen *ngIf="menu.children.length">
       <span title><i nz-icon [type]="menu.icon"></i><span class="nav-text">{{menu.text}}</span></span>
       <ul>
-        <li nz-menu-item *ngFor="let children of menu.children" [routerLink]="[children.link]" routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }">{{children.text}}</li>
+        <li nz-menu-item *ngFor="let children of menu.children" [routerLink]="[children.link]" routerLinkActive="active">{{children.text}}</li>
       </ul>
        
     </li>

@@ -22,7 +22,7 @@ registerLocaleData(en);
     HttpClientModule,
     BrowserAnimationsModule,
     NzNotificationModule,
-    AppRoutingModule
+    AppRoutingModule/*Notice that the AppRoutingModule is last*/
   ],
   providers: [{provide: NZ_I18N, useValue: en_US}, CookieService,
     httpInterceptorProviders],

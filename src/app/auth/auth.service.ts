@@ -9,6 +9,7 @@ export class AuthService {
   // store the URL so we can redirect after logging in
   redirectUrl: string;
 
+  auths: Array<string>;
   /*login(): Observable<boolean> {
     return of(true).pipe(
       delay(1000),

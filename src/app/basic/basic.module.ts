@@ -7,9 +7,10 @@ import {RoleComponent} from "./role/role.component";
 import {AuthComponent} from "./auth/auth.component";
 import {SharedModule} from "../shared/shared.module";
 import {AuthGuard} from "../auth/auth.guard";
+import {UserEditComponent} from "./user/user-edit/user-edit.component";
 
 @NgModule({
-  declarations: [BasicComponent, UserComponent, RoleComponent, AuthComponent],
+  declarations: [BasicComponent, UserComponent, RoleComponent, AuthComponent, UserEditComponent],
   imports: [
     CommonModule,
     RouterModule.forChild([
@@ -20,9 +21,33 @@ import {AuthGuard} from "../auth/auth.guard";
         component: BasicComponent,
         children: [
           {path: '', redirectTo: 'user', pathMatch: 'full'},
-          {path: 'user', component: UserComponent, data: {'permission': 'user-view'}},
-          {path: 'role', component: RoleComponent},
-          {path: 'auth', component: AuthComponent},
+          {
+            path: 'user',
+            component: UserComponent,
+            data: {'permission': 'user'},
+            children: [
+              {
+                path: 'edit/:id',
+                component: UserEditComponent,
+                data: {'permission': 'user-edit'}
+              }
+            ]
+          },
+          {
+            path: 'user/:id',
+            component: UserEditComponent,
+            data: {'permission': 'user-edit'}
+          },
+          {
+            path: 'role',
+            component: RoleComponent,
+            // data: {'permission': 'role'}
+          },
+          {
+            path: 'auth',
+            component: AuthComponent,
+            data: {'permission': 'auth'}
+          },
         ]
       },
     ]),

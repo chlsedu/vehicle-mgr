@@ -22,14 +22,22 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.validateForm.value, (success) => {
       (success && ((() => {
         this.validateForm.value.remember && this.cookieService.set("jwtToken", success.token, 7);
-        // Get the redirect URL from our auth service
-        // If no redirect has been set, use the default
-        // let redirect = this.authService.redirectUrl ? this.router.parseUrl(this.authService.redirectUrl) : '/basic';
-        let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/basic';
-        this.authService.isLoggedIn = true;
-        // Redirect the user
-        this.router.navigateByUrl(redirect);
-        // this.router.navigateByUrl("/");
+        this.loginService.getUserInfo({}, (success) => {
+          (success && ((() => {
+            // this.validateForm.value.remember && this.cookieService.set("jwtToken", success.token, 7);
+            this.validateForm.value.remember && this.cookieService.set("data", JSON.stringify(success.data), 7);
+            // Get the redirect URL from our auth service
+            // If no redirect has been set, use the default
+            let redirect = this.authService.redirectUrl ? this.router.parseUrl(this.authService.redirectUrl) : '/basic';
+            // let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/basic';
+            // this.authService.isLoggedIn = true;
+            // Redirect the user
+            this.router.navigateByUrl(redirect);
+            // this.router.navigate([redirect], {queryParams: {"userName": "chls888"}});
+            // this.router.navigateByUrl("/");
+
+          })()))
+        })
       })()))
     })
   }

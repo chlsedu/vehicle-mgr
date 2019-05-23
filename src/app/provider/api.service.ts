@@ -176,7 +176,7 @@ export class LoginService {
     })
   };
 
-  constructor(protected http: HttpClient, /*protected cookieService: CookieService,*/ protected utilities: UtilitiesService, protected router: Router) {
+  constructor(protected http: HttpClient, protected cookieService: CookieService, protected utilities: UtilitiesService, protected router: Router) {
     (async () => {
       let configPromise = await this.fetchConfig().toPromise()
       this.config = configPromise;
@@ -213,8 +213,36 @@ export class LoginService {
       }));
   }
 
+  protected fetchData__(data: any, url: string): Observable<any> {
+    let jwtToken = this.cookieService.get("jwtToken");
+    let httpOptionsJwt = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': this.config["jwtParameter"].Authorization + jwtToken
+      })
+    };
+    return this.http.post<any>(url, data, httpOptionsJwt)
+      .pipe(catchError((error: any) => {
+        if (error.status === 400) {
+          this.utilities.createNotification('error', '错误提示', error.error.message);
+          // this.router.navigateByUrl("/");
+        }
+        return throwError(error);
+      }));
+  }
+
   public subscribeData(url: string, data: any, cb): void {
     this.fetchData(data, url).subscribe((data: any) => {
+      cb && cb(data)
+    });
+  }
+
+  public async getUserInfo(data: any, cb) {
+    if (this.config == null) {
+      let _t: any | undefined = await this.utilities.sleep(1000);
+    }
+    let url = this.config["user"].api.userInfo;
+    this.fetchData__(data, url).subscribe((data: any) => {
       cb && cb(data)
     });
   }
