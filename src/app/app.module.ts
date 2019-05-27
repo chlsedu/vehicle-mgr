@@ -10,12 +10,16 @@ import en from '@angular/common/locales/en';
 import {AppRoutingModule} from './app-routing.module';
 import {CookieService} from "ngx-cookie-service";
 import {httpInterceptorProviders} from "./http-interceptors";
+import {RouteReuseStrategy} from "@angular/router";
+import {ReuseTabStrategy} from "./reuse-tab/reuse-tab.strategy";
+// import { ReuseTabComponent } from './reuse-tab/reuse-tab.component';
 
 registerLocaleData(en);
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    // ReuseTabComponent
   ],
   imports: [
     BrowserModule,
@@ -24,8 +28,12 @@ registerLocaleData(en);
     NzNotificationModule,
     AppRoutingModule/*Notice that the AppRoutingModule is last*/
   ],
-  providers: [{provide: NZ_I18N, useValue: en_US}, CookieService,
-    httpInterceptorProviders],
+  providers: [
+    {provide: NZ_I18N, useValue: en_US},
+    CookieService,
+    httpInterceptorProviders,
+    {provide: RouteReuseStrategy, useClass: ReuseTabStrategy},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

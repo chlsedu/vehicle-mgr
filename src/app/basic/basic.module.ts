@@ -8,15 +8,17 @@ import {AuthComponent} from "./auth/auth.component";
 import {SharedModule} from "../shared/shared.module";
 import {AuthGuard} from "../auth/auth.guard";
 import {UserEditComponent} from "./user/user-edit/user-edit.component";
+import {ReuseTabComponent} from "../reuse-tab/reuse-tab.component";
 
 @NgModule({
-  declarations: [BasicComponent, UserComponent, RoleComponent, AuthComponent, UserEditComponent],
+  declarations: [BasicComponent, UserComponent, RoleComponent, AuthComponent, UserEditComponent, ReuseTabComponent],
   imports: [
     CommonModule,
     RouterModule.forChild([
       {path: '', redirectTo: 'child', pathMatch: 'full'},
       {
         path: 'child',
+        data: {title: '基础信息', reuse: true, isParentNode: true},
         canActivateChild: [AuthGuard],
         component: BasicComponent,
         children: [
@@ -24,12 +26,12 @@ import {UserEditComponent} from "./user/user-edit/user-edit.component";
           {
             path: 'user',
             component: UserComponent,
-            data: {'permission': 'user'},
+            data: {'permission': 'user', title: '用户管理', reuse: true},
             children: [
               {
                 path: 'edit/:id',
                 component: UserEditComponent,
-                data: {'permission': 'user-edit'}
+                data: {'permission': 'user-edit', title: '用户管理--2', reuse: true}
               }
             ]
           },
@@ -41,12 +43,12 @@ import {UserEditComponent} from "./user/user-edit/user-edit.component";
           {
             path: 'role',
             component: RoleComponent,
-            // data: {'permission': 'role'}
+            data: {title: '角色管理', reuse: true}
           },
           {
             path: 'auth',
             component: AuthComponent,
-            data: {'permission': 'auth'}
+            data: {'permission': 'auth', title: '权限管理', reuse: true}
           },
         ]
       },

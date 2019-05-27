@@ -11,7 +11,8 @@ import {
   NzInputModule,
   NzLayoutModule,
   NzMenuModule,
-  NzTableModule
+  NzTableModule,
+  NzTabsModule,
 } from 'ng-zorro-antd';
 
 @NgModule({
@@ -27,6 +28,7 @@ import {
     , NzIconModule
     , NzInputModule
     , NzTableModule
+    , NzTabsModule
   ],
   exports: [BreadcrumbComponent, HeaderComponent, SiderComponent,
     CommonModule
@@ -38,7 +40,9 @@ import {
     , NzDropDownModule
     , NzIconModule
     , NzInputModule
-    , NzTableModule]
+    , NzTableModule
+    , NzTabsModule
+  ]
 })
 export class LayoutModule {
 }
