@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Router} from "@angular/router";
 import {ReuseTabService} from "./reuse-tab.service";
 
@@ -12,7 +12,7 @@ export class ReuseTabComponent/* implements OnInit*/ {
 
   constructor(
     private router: Router,
-    private reusetabService: ReuseTabService,
+    private reuseTabService: ReuseTabService,
     // private appReuseStrategy: AppReuseStrategy,
   ) {
   }
@@ -34,10 +34,13 @@ export class ReuseTabComponent/* implements OnInit*/ {
 
   closeUrl(url: string, isSelect: boolean, event: Event) {
     event.preventDefault();
-    const index = this.list.findIndex(p => p.url === url);
     if (this.list.length === 1) {
       return;
     }
+    this.reuseTabService.close(url);
+    //
+
+    /*const index = this.list.findIndex(p => p.url === url);
     this.list = this.list.filter(p => p.url !== url);
     // this.appReuseStrategy.deleteRouteSnapshot(url);
     // this.reusetabService.closeAllByRegex(url);
@@ -49,6 +52,6 @@ export class ReuseTabComponent/* implements OnInit*/ {
       menu = this.list[index];
     }
     this.list.forEach(p => p.isSelect = p.url === menu.url);
-    this.router.navigate(['/' + menu.url]);
+    this.router.navigate(['/' + menu.url]);*/
   }
 }

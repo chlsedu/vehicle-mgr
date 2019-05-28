@@ -61,13 +61,35 @@ export class BasicComponent implements OnInit, OnDestroy {
   genList(res) {
     if (res) {
       console.log(res);
-      this.menuList = res.list;
+      if (res.active == "close") {
+
+        if (res.list.length === 1) {
+          return;
+        }
+        const index = res.list.findIndex(p => p.url === res.url);
+        let list = res.list.filter(p => p.url !== res.url);
+        // this.appReuseStrategy.deleteRouteSnapshot(url);
+        // this.reusetabService.closeAllByRegex(url);
+        /*if (!isSelect) {
+          return;
+        }*/
+        let menu = list[index - 1];
+        if (!menu) {
+          menu = list[index];
+        }
+        list.forEach(p => p.isSelect = p.url === menu.url);
+        // this.router.navigate(['/' + menu.url]);
+        this.menuList = list;
+      }
+      else {
+        /*===========*/
+        this.menuList = res.list;
+      }
     }
   }
 
   ngOnDestroy(): void {
     const {sub$} = this;
-
     if (sub$) {
       sub$.unsubscribe();
     }
