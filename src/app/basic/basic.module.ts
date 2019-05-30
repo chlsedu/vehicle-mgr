@@ -38,7 +38,7 @@ import {ReuseTabComponent} from "../reuse-tab/reuse-tab.component";
           {
             path: 'user/:id',
             component: UserEditComponent,
-            data: {'permission': 'user-edit'}
+            data: {title: '用户编辑', 'permission': 'user-edit'}
           },
           {
             path: 'role',

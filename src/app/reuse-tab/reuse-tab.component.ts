@@ -13,7 +13,6 @@ export class ReuseTabComponent/* implements OnInit*/ {
   constructor(
     private router: Router,
     private reuseTabService: ReuseTabService,
-    // private appReuseStrategy: AppReuseStrategy,
   ) {
   }
 
@@ -34,24 +33,6 @@ export class ReuseTabComponent/* implements OnInit*/ {
 
   closeUrl(url: string, isSelect: boolean, event: Event) {
     event.preventDefault();
-    if (this.list.length === 1) {
-      return;
-    }
     this.reuseTabService.close(url);
-    //
-
-    /*const index = this.list.findIndex(p => p.url === url);
-    this.list = this.list.filter(p => p.url !== url);
-    // this.appReuseStrategy.deleteRouteSnapshot(url);
-    // this.reusetabService.closeAllByRegex(url);
-    if (!isSelect) {
-      return;
-    }
-    let menu = this.list[index - 1];
-    if (!menu) {
-      menu = this.list[index];
-    }
-    this.list.forEach(p => p.isSelect = p.url === menu.url);
-    this.router.navigate(['/' + menu.url]);*/
   }
 }

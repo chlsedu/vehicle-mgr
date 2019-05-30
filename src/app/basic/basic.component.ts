@@ -13,25 +13,17 @@ import {filter, map, mergeMap} from "rxjs/operators";
 export class BasicComponent implements OnInit, OnDestroy {
 
   isCollapsed = false;
-  triggerTemplate = null;
-  date;
-
-  /*constructor() {
-  }*/
+  date = new Date().getFullYear();
 
   launchSidebar() {
     this.isCollapsed = !this.isCollapsed;
   }
 
   ngOnInit() {
-    const date = new Date();
-    this.date = date.getFullYear();
   }
 
   /*====*/
   private sub$: Subscription;
-
-  // 路由列表
   menuList: Array<{ title: string, url: string, isSelect: boolean }> = [];
 
   constructor(
@@ -61,29 +53,18 @@ export class BasicComponent implements OnInit, OnDestroy {
   genList(res) {
     if (res) {
       console.log(res);
+      this.menuList = res.list;
       if (res.active == "close") {
-
-        if (res.list.length === 1) {
-          return;
+        try {
+          res.list.forEach(p => {
+            if (p.isSelect) {
+              this.router.navigate(['/' + p.url]);
+              // throw new Error("break!") //also prevent "shouldReuseRoute",all entire RouteReuseStrategy,so do unused
+            }
+          });
+        } catch (e) {
         }
-        const index = res.list.findIndex(p => p.url === res.url);
-        let list = res.list.filter(p => p.url !== res.url);
-        // this.appReuseStrategy.deleteRouteSnapshot(url);
-        // this.reusetabService.closeAllByRegex(url);
-        /*if (!isSelect) {
-          return;
-        }*/
-        let menu = list[index - 1];
-        if (!menu) {
-          menu = list[index];
-        }
-        list.forEach(p => p.isSelect = p.url === menu.url);
-        // this.router.navigate(['/' + menu.url]);
-        this.menuList = list;
-      }
-      else {
-        /*===========*/
-        this.menuList = res.list;
+      } else {
       }
     }
   }

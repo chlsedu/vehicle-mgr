@@ -1,7 +1,9 @@
 <nz-header>
   <div class="dw-logo" [ngStyle]="{'width':isCollapsed?'80px':'200px'}">
-    <i class="iconfont" *ngIf="!isCollapsed">&#xe67a;</i>
-    <i class="iconfont" *ngIf="isCollapsed">&#xe603;</i>
+    <!--<i class="iconfont" *ngIf="!isCollapsed">&#xe67a;</i>
+    <i class="iconfont" *ngIf="isCollapsed">&#xe603;</i>-->
+    <img src="../../../../assets/imgs/logo.png" class="logo" *ngIf="!isCollapsed">
+    <img src="../../../../assets/imgs/logo.png" class="logo" *ngIf="isCollapsed">
   </div>
   <div class="dw-inter-change">
     <i class="trigger" nz-icon [nzType]="isCollapsed?'menu-unfold':'menu-fold'" (click)="changeIcon()"></i>
@@ -9,7 +11,7 @@
   <div class="dw-inter">
     <div class="dw-inter-left">
       <div class="dw-inter-item" *ngIf="resize>500">
-        <a href="https://github.com/ZhouRenYou/ng-deerway" target="_blank"><i nz-icon nzType="github"></i></a>
+        <a href="" target="_blank"><i nz-icon nzType="github"></i></a>
       </div>
       <div class="dw-inter-item" *ngIf="resize>900">
         <i nz-icon nzType="schedule"></i>
@@ -42,7 +44,7 @@
       <div class="dw-inter-item">
         <nz-dropdown [nzPlacement]="'bottomCenter'">
           <a nz-dropdown>
-            星河
+            chlsedu
           </a>
           <ul nz-menu nzSelectable>
             <li nz-menu-item>

@@ -1,4 +1,8 @@
-<nz-breadcrumb style="margin:16px 0;">
-  <nz-breadcrumb-item>百度地图</nz-breadcrumb-item>
-  <nz-breadcrumb-item>地图标点</nz-breadcrumb-item>
+<nz-breadcrumb style="margin:5px 0;padding: 0px 10px" nzSeparator=">">
+  <nz-breadcrumb-item>
+    <a [routerLink]='["/"]'>首页</a>
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item *ngFor='let breadcrumb of breadcrumbs'>
+    <span>{{ breadcrumb.label }}</span>
+  </nz-breadcrumb-item>
 </nz-breadcrumb>

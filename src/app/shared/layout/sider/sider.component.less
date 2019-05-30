@@ -13,7 +13,24 @@ li {
 a {
   color: black;
 }
-.active{
-  color: #1890ff;
-  background-color: #e6f7ff;
+
+.active {
+  color: #1890ff !important;
+  background-color: #e6f7ff !important;
+}
+
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background-color: inherit;
+}
+
+.ant-menu-item-selected {
+  color: inherit;
+}
+
+.ant-menu-vertical .ant-menu-item::after, .ant-menu-vertical-left .ant-menu-item::after, .ant-menu-vertical-right .ant-menu-item::after, .ant-menu-inline .ant-menu-item::after {
+  border-right: none;
+}
+
+.ant-menu-inline .ant-menu-item, .ant-menu-inline .ant-menu-submenu-title {
+  width: calc(100%);
 }

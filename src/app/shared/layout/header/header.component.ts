@@ -8,7 +8,6 @@ import {fromEvent} from 'rxjs';
   styleUrls: ['./header.component.less']
 })
 export class HeaderComponent implements OnInit {
-  /**屏幕尺寸 */
   resize = document.body.clientWidth;
   isCollapsed = false;
   @Output() nzCollapsed = new EventEmitter<void>();
@@ -19,7 +18,6 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    /**监听浏览器的变化 */
     fromEvent(window, 'resize')
       .subscribe((e) => {
         this.resize = e.currentTarget['innerWidth'];
@@ -33,6 +31,6 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     // this.tokenService.clear();
-    this.router.navigateByUrl('passport/login');
+    this.router.navigateByUrl('/login');
   }
 }
