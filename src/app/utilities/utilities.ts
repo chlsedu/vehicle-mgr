@@ -206,3 +206,39 @@ export const parent_url_dict = {
 export const closeRegexs = [
   '^/Parent'
 ];
+
+/** 私有属性 */
+const _nodexy = Symbol('_nodexy');   // 节点坐标
+const _startxy = Symbol('_startxy');    // 起始坐标
+const _mousedown = Symbol('_mousedown'); // 判断鼠标是否按下
+
+export class DragElement {
+  element: any
+
+  constructor(element: any) {
+    this.element = element;
+    this[_nodexy] = [0, 0]; // 节点坐标
+    this[_mousedown] = false;  // 判断鼠标是否按下
+    this[_startxy] = [0, 0]; // 起始坐标
+  }
+
+  draggable() {
+
+    this.element.addEventListener("mousedown", (event) => {
+      this[_mousedown] = true;
+      this[_startxy] = [event.clientX, event.clientY];
+      this[_nodexy] = [this.element.offsetLeft, this.element.offsetTop];
+    });
+
+    document.addEventListener("mousemove", (event) => {
+      if (this[_mousedown]) {
+        this.element.style.left = this[_nodexy][0] + (event.clientX - this[_startxy][0]) + 'px';
+        this.element.style.top = this[_nodexy][1] + (event.clientY - this[_startxy][1]) + 'px';
+      }
+    });
+
+    this.element.addEventListener("mouseup", (event) => {
+      this[_mousedown] = false;
+    });
+  }
+}

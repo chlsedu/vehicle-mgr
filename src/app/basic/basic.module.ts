@@ -2,18 +2,21 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {BasicComponent} from './basic.component';
 import {RouterModule} from "@angular/router";
-import {UserComponent} from "./user/user.component";
+import {NzModalCustomComponent, UserComponent} from "./user/user.component";
 import {RoleComponent} from "./role/role.component";
 import {AuthComponent} from "./auth/auth.component";
 import {SharedModule} from "../shared/shared.module";
 import {AuthGuard} from "../auth/auth.guard";
 import {UserEditComponent} from "./user/user-edit/user-edit.component";
 import {ReuseTabComponent} from "../reuse-tab/reuse-tab.component";
+import {NzModalModule} from "ng-zorro-antd";
 
 @NgModule({
-  declarations: [BasicComponent, UserComponent, RoleComponent, AuthComponent, UserEditComponent, ReuseTabComponent],
+  declarations: [BasicComponent, UserComponent, RoleComponent, AuthComponent, UserEditComponent, ReuseTabComponent, NzModalCustomComponent],
+  entryComponents: [NzModalCustomComponent],
   imports: [
     CommonModule,
+    NzModalModule,
     RouterModule.forChild([
       {path: '', redirectTo: 'child', pathMatch: 'full'},
       {

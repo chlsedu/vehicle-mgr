@@ -1,0 +1,14 @@
+
+.m_i {
+  color: red;
+}
+
+.ant-modal-content {
+  max-height: 50px;
+  overflow-y: scroll;
+}
+
+.ant-modal-close {
+  border: 99999px;
+  cursor: inherit;
+}

@@ -28,8 +28,8 @@ export class LoginComponent implements OnInit {
             this.validateForm.value.remember && this.cookieService.set("data", JSON.stringify(success.data), 7);
             // Get the redirect URL from our auth service
             // If no redirect has been set, use the default
-            let redirect = this.authService.redirectUrl ? this.router.parseUrl(this.authService.redirectUrl) : '/basic';
-            // let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/basic';
+            // let redirect = this.authService.redirectUrl ? this.router.parseUrl(this.authService.redirectUrl) : '/basic';
+            let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/basic';
             // this.authService.isLoggedIn = true;
             // Redirect the user
             this.router.navigateByUrl(redirect);

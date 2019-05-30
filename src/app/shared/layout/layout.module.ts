@@ -6,7 +6,9 @@ import {HeaderComponent} from "./header/header.component";
 import {SiderComponent} from "./sider/sider.component";
 import {
   NzBreadCrumbModule,
-  NzDropDownModule, NzFormModule,
+  NzButtonModule,
+  NzDropDownModule,
+  NzFormModule,
   NzIconModule,
   NzInputModule,
   NzLayoutModule,
@@ -29,6 +31,7 @@ import {
     , NzInputModule
     , NzTableModule
     , NzTabsModule
+    , NzButtonModule
   ],
   exports: [BreadcrumbComponent, HeaderComponent, SiderComponent,
     CommonModule
@@ -42,6 +45,7 @@ import {
     , NzInputModule
     , NzTableModule
     , NzTabsModule
+    , NzButtonModule
   ]
 })
 export class LayoutModule {

@@ -12,6 +12,7 @@ import {CookieService} from "ngx-cookie-service";
 import {httpInterceptorProviders} from "./http-interceptors";
 import {RouteReuseStrategy} from "@angular/router";
 import {ReuseTabStrategy} from "./reuse-tab/reuse-tab.strategy";
+import { ZmMovableModalDirective } from './directive/zm-movable-modal.directive';
 // import { ReuseTabComponent } from './reuse-tab/reuse-tab.component';
 
 registerLocaleData(en);
@@ -19,6 +20,7 @@ registerLocaleData(en);
 @NgModule({
   declarations: [
     AppComponent,
+    ZmMovableModalDirective,
     // ReuseTabComponent
   ],
   imports: [

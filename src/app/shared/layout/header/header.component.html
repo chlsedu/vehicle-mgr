@@ -10,7 +10,7 @@
   </div>
   <div class="dw-inter">
     <div class="dw-inter-left">
-      <div class="dw-inter-item" *ngIf="resize>500">
+      <!--<div class="dw-inter-item" *ngIf="resize>500">
         <a href="" target="_blank"><i nz-icon nzType="github"></i></a>
       </div>
       <div class="dw-inter-item" *ngIf="resize>900">
@@ -33,13 +33,16 @@
       </div>
       <div class="dw-inter-item" *ngIf="resize>1200">
         <i nz-icon nzType="shop"></i>
-      </div>
+      </div>-->
     </div>
     <div class="dw-inter-right" *ngIf="resize>500">
       <div class="dw-inter-search" *ngIf="resize>900">
         <nz-input-group [nzSuffix]="suffixIconSearch" [ngStyle]="{'width': resize < 1300 ? '150px':'150px'}">
           <input type="text" nz-input placeholder="搜索">
         </nz-input-group>
+      </div>
+      <div class="dw-inter-item" *ngIf="resize>500">
+        <a href="" target="_blank"><i nz-icon nzType="github"></i></a>
       </div>
       <div class="dw-inter-item">
         <nz-dropdown [nzPlacement]="'bottomCenter'">

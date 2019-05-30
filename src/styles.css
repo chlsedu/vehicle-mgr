@@ -10,3 +10,32 @@
 @import url('~@ionic/angular/css/text-alignment.css');
 @import url('~@ionic/angular/css/text-transformation.css');
 @import url('~@ionic/angular/css/flex-utils.css');*/
+
+.ant-modal {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
+.ant-modal-wrap {
+  position: absolute;
+}
+
+.cdk-overlay-container {
+  height: 0;
+  width: 0;
+}
+
+.ant-modal-mask {
+  position: absolute;
+}
+
+.ant-modal {
+  padding-bottom: 0px;
+}
+
+.ant-modal-content {
+  cursor: all-scroll;
+}

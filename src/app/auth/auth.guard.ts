@@ -9,14 +9,29 @@ import {CookieService} from "ngx-cookie-service";
 })
 export class AuthGuard implements CanActivate, CanActivateChild {
   constructor(private authService: AuthService, private router: Router, private cookieService: CookieService) {
-    let cookieData = JSON.parse(this.cookieService.get("data"));
-    this.authService.auths = cookieData.auths;
-    if (this.authService.auths != null) this.authService.isLoggedIn = true;
+    /*let t = this.cookieService.get("data");
+    if (t != "") {
+      let cookieData = JSON.parse(t);
+      this.authService.auths = cookieData.auths;
+      if (this.authService.auths != null) this.authService.isLoggedIn = true;
+    }*/
+    this.doCheckPrePost()
+  }
+
+  doCheckPrePost() {
+    let t = this.cookieService.get("data");
+    if (t != "") {
+      let cookieData = JSON.parse(t);
+      this.authService.auths = cookieData.auths;
+      if (this.authService.auths != null) this.authService.isLoggedIn = true;
+    }
   }
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean {
+    if (this.authService.auths == null)
+      this.doCheckPrePost()
     let url: string = state.url;
     let permission: string | null = next.data["permission"];
     return this.checkLogin(permission, url);

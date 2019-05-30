@@ -8,4 +8,13 @@
 </router-outlet>
 <p>
   user works!{{errorMsg}}
+  <button nz-button [nzType]="primary" (click)="createComponentModal('888888888888')">
+    <span>Use Component8</span>
+  </button>
+  <button nz-button [nzType]="primary" (click)="createComponentModal('5555555555555')">
+    <span>Use Component5</span>
+  </button>
+  <button nz-button [nzType]="primary" (click)="createComponentModal('000000000000')">
+    <span>Use Component0</span>
+  </button>
 </p>
