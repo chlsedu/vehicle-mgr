@@ -17,7 +17,7 @@ export class MenuService {
     },
     {
       text: '基础管理',
-      link: 'base',
+      link: '/base',
       icon: 'setting',
       children: [
         {

@@ -8,20 +8,22 @@ import {AuthComponent} from "./auth/auth.component";
 import {SharedModule} from "../shared/shared.module";
 import {AuthGuard} from "../auth/auth.guard";
 import {UserEditComponent} from "./user/user-edit/user-edit.component";
-import {ReuseTabComponent} from "../reuse-tab/reuse-tab.component";
 import {NzModalModule} from "ng-zorro-antd";
+import {ReuseTabModule} from "../reuse-tab/reuse-tab.module";
 
 @NgModule({
-  declarations: [BasicComponent, UserComponent, RoleComponent, AuthComponent, UserEditComponent, ReuseTabComponent, NzModalCustomComponent],
+  declarations: [BasicComponent, UserComponent, RoleComponent, AuthComponent, UserEditComponent, NzModalCustomComponent],
   entryComponents: [NzModalCustomComponent],
   imports: [
     CommonModule,
     NzModalModule,
+    SharedModule,
+    ReuseTabModule,
     RouterModule.forChild([
       {path: '', redirectTo: 'child', pathMatch: 'full'},
       {
         path: 'child',
-        data: {title: '基础信息', reuse: true, isParentNode: true},
+        data: {title: '基础信息', reuse: true},
         canActivateChild: [AuthGuard],
         component: BasicComponent,
         children: [
@@ -56,7 +58,6 @@ import {NzModalModule} from "ng-zorro-antd";
         ]
       },
     ]),
-    SharedModule,
   ],
   // exports: [RouterModule]
 })
